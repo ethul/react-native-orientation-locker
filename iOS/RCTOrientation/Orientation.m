@@ -112,11 +112,10 @@ static UIInterfaceOrientationMask _orientationMask = UIInterfaceOrientationMaskA
 }
 
 - (UIWindowScene *)getWindowScene {
-    NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
-    for (id connectedScene in array) {
-      if ([connectedScene isKindOfClass:[UIWindowScene class]]) {
-        return connectedScene;
-      }
+    for (UIWindowScene *windowScene in [UIApplication sharedApplication].connectedScenes) {
+        if (windowScene.activationState == UISceneActivationStateForegroundActive) {
+            return windowScene;
+        }
     }
     return nil;
 }
